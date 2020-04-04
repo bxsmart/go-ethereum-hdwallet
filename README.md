@@ -6,7 +6,7 @@
   <br />
 </h3>
 
-# go-ethereum-hdwallet
+# go-hdwallet
 
 > Ethereum HD Wallet derivations from [mnemonic] seed in Go (golang). Implements the [go-ethereum](https://github.com/ethereum/go-ethereum) [`accounts.Wallet`](https://github.com/ethereum/go-ethereum/blob/master/accounts/accounts.go) interface.
 

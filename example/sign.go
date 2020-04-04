@@ -1,23 +1,23 @@
 package main
 
 import (
+	"github.com/bxsmart/go-hdwallet/eth"
 	"log"
 	"math/big"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/miguelmota/go-ethereum-hdwallet"
 )
 
 func main() {
 	mnemonic := "tag volcano eight thank tide danger coast health above argue embrace heavy"
-	wallet, err := hdwallet.NewFromMnemonic(mnemonic)
+	wallet, err := eth.NewFromMnemonic(mnemonic)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	path := hdwallet.MustParseDerivationPath("m/44'/60'/0'/0/0")
+	path := eth.MustParseDerivationPath("m/44'/60'/0'/0/0")
 	account, err := wallet.Derive(path, true)
 	if err != nil {
 		log.Fatal(err)
