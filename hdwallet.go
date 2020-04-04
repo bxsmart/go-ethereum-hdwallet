@@ -1,4 +1,4 @@
-package go_hdwallet
+package hdwallet
 
 import (
 	"crypto/ecdsa"

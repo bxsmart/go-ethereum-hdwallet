@@ -1,3 +1,3 @@
-package go_hdwallet
+package hdwallet
 
 type WalletOption func(*Wallet)
