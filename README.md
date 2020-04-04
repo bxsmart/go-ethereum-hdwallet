@@ -32,10 +32,10 @@ go get -u github.com/bxsmart/go-hdwallet
 package main
 
 import (
-	"fmt"
-	"log"
+    "fmt"
+    "log"
 
-	"github.com/bxsmart/go-hdwallet/eth"
+    "github.com/bxsmart/go-hdwallet"
 )
 
 func main() {
@@ -69,13 +69,13 @@ func main() {
 package main
 
 import (
-	"log"
-	"math/big"
+    "log"
+    "math/big"
 
-    "github.com/bxsmart/go-hdwallet/eth"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+    "github.com/bxsmart/go-hdwallet"
+    "github.com/davecgh/go-spew/spew"
+    "github.com/ethereum/go-ethereum/common"
+    "github.com/ethereum/go-ethereum/core/types"
 )
 
 func main() {

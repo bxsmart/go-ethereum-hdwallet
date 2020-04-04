@@ -1,11 +1,11 @@
-package eth_test
+package go_hdwallet_test
 
 import (
+	"github.com/bxsmart/go-hdwallet"
 	"math/big"
 	"strings"
 	"testing"
 
-	. "github.com/bxsmart/go-hdwallet/eth"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -16,12 +16,12 @@ import (
 
 func TestWallet(t *testing.T) {
 	mnemonic := "tag volcano eight thank tide danger coast health above argue embrace heavy"
-	wallet, err := NewFromMnemonic(mnemonic)
+	wallet, err := go_hdwallet.NewFromMnemonic(mnemonic)
 	if err != nil {
 		t.Error(err)
 	}
 
-	path, err := ParseDerivationPath("m/44'/60'/0'/0/0")
+	path, err := go_hdwallet.ParseDerivationPath("m/44'/60'/0'/0/0")
 	if err != nil {
 		t.Error(err)
 	}
@@ -224,17 +224,17 @@ func TestWallet(t *testing.T) {
 
 	// seed test
 
-	seed, err := NewSeedFromMnemonic(mnemonic)
+	seed, err := go_hdwallet.NewSeedFromMnemonic(mnemonic)
 	if err != nil {
 		t.Error(err)
 	}
 
-	wallet, err = NewFromSeed(seed)
+	wallet, err = go_hdwallet.NewFromSeed(seed)
 	if err != nil {
 		t.Error(err)
 	}
 
-	path = MustParseDerivationPath("m/44'/60'/0'/0/0")
+	path = go_hdwallet.MustParseDerivationPath("m/44'/60'/0'/0/0")
 	account, err = wallet.Derive(path, false)
 	if err != nil {
 		t.Error(err)
@@ -244,7 +244,7 @@ func TestWallet(t *testing.T) {
 		t.Error("wrong address")
 	}
 
-	seed, err = NewSeed()
+	seed, err = go_hdwallet.NewSeed()
 	if err != nil {
 		t.Error(err)
 	}
@@ -253,7 +253,7 @@ func TestWallet(t *testing.T) {
 		t.Error("expected size of 64")
 	}
 
-	seed, err = NewSeedFromMnemonic(mnemonic)
+	seed, err = go_hdwallet.NewSeedFromMnemonic(mnemonic)
 	if err != nil {
 		t.Error(err)
 	}
@@ -262,7 +262,7 @@ func TestWallet(t *testing.T) {
 		t.Error("expected size of 64")
 	}
 
-	mnemonic, err = NewMnemonic(128)
+	mnemonic, err = go_hdwallet.NewMnemonic(128)
 	if err != nil {
 		t.Error(err)
 	}
@@ -272,12 +272,12 @@ func TestWallet(t *testing.T) {
 		t.Error("expected 12 words")
 	}
 
-	entropy, err := NewEntropy(128)
+	entropy, err := go_hdwallet.NewEntropy(128)
 	if err != nil {
 		t.Error(err)
 	}
 
-	mnemonic, err = NewMnemonicFromEntropy(entropy)
+	mnemonic, err = go_hdwallet.NewMnemonicFromEntropy(entropy)
 	if err != nil {
 		t.Error(err)
 	}

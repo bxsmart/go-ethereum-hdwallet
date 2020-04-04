@@ -1,4 +1,4 @@
-package eth
+package go_hdwallet
 
 import (
 	"crypto/ecdsa"
