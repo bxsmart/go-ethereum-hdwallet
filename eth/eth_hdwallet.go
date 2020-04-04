@@ -1,4 +1,4 @@
-package hdwallet
+package eth
 
 import (
 	"crypto/ecdsa"
@@ -55,7 +55,7 @@ func newWallet(seed []byte) (*Wallet, error) {
 }
 
 // NewFromMnemonic returns a new wallet from a BIP-39 mnemonic.
-func NewFromMnemonic(mnemonic string) (*Wallet, error) {
+func NewFromMnemonic(mnemonic string, pwdstr ...string) (*Wallet, error) {
 	if mnemonic == "" {
 		return nil, errors.New("mnemonic is required")
 	}
@@ -64,7 +64,7 @@ func NewFromMnemonic(mnemonic string) (*Wallet, error) {
 		return nil, errors.New("mnemonic is invalid")
 	}
 
-	seed, err := NewSeedFromMnemonic(mnemonic)
+	seed, err := NewSeedFromMnemonic(mnemonic, pwdstr)
 	if err != nil {
 		return nil, err
 	}
@@ -453,10 +453,12 @@ func MustParseDerivationPath(path string) accounts.DerivationPath {
 
 // NewMnemonic returns a randomly generated BIP-39 mnemonic using 128-256 bits of entropy.
 func NewMnemonic(bits int) (string, error) {
+
 	entropy, err := bip39.NewEntropy(bits)
 	if err != nil {
 		return "", err
 	}
+
 	return bip39.NewMnemonic(entropy)
 }
 
@@ -478,20 +480,28 @@ func NewSeed() ([]byte, error) {
 }
 
 // NewSeedFromMnemonic returns a BIP-39 seed based on a BIP-39 mnemonic.
-func NewSeedFromMnemonic(mnemonic string) ([]byte, error) {
+func NewSeedFromMnemonic(mnemonic string, pwdstr ...string) ([]byte, error) {
 	if mnemonic == "" {
 		return nil, errors.New("mnemonic is required")
 	}
 
-	return bip39.NewSeedWithErrorChecking(mnemonic, "")
+	password := ""
+	if len(pwdstr) > 0 {
+		password = pwdstr[0]
+	}
+
+	return bip39.NewSeedWithErrorChecking(mnemonic, password)
 }
 
 // DerivePrivateKey derives the private key of the derivation path.
 func (w *Wallet) derivePrivateKey(path accounts.DerivationPath) (*ecdsa.PrivateKey, error) {
+
 	var err error
+
 	key := w.masterKey
 	for _, n := range path {
 		key, err = key.Child(n)
+
 		if err != nil {
 			return nil, err
 		}
@@ -508,6 +518,7 @@ func (w *Wallet) derivePrivateKey(path accounts.DerivationPath) (*ecdsa.PrivateK
 
 // DerivePublicKey derives the public key of the derivation path.
 func (w *Wallet) derivePublicKey(path accounts.DerivationPath) (*ecdsa.PublicKey, error) {
+
 	privateKeyECDSA, err := w.derivePrivateKey(path)
 	if err != nil {
 		return nil, err
@@ -524,12 +535,15 @@ func (w *Wallet) derivePublicKey(path accounts.DerivationPath) (*ecdsa.PublicKey
 
 // DeriveAddress derives the account address of the derivation path.
 func (w *Wallet) deriveAddress(path accounts.DerivationPath) (common.Address, error) {
+
 	publicKeyECDSA, err := w.derivePublicKey(path)
+
 	if err != nil {
 		return common.Address{}, err
 	}
 
 	address := crypto.PubkeyToAddress(*publicKeyECDSA)
+
 	return address, nil
 }
 

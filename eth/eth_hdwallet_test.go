@@ -1,10 +1,11 @@
-package hdwallet
+package eth_test
 
 import (
 	"math/big"
 	"strings"
 	"testing"
 
+	. "github.com/bxsmart/go-hdwallet/eth"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
