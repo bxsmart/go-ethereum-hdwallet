@@ -19,7 +19,7 @@
 ## Install
 
 ```bash
-go get -u github.com/miguelmota/go-ethereum-hdwallet
+go get -u github.com/bxsmart/go-hdwallet
 ```
 
 ## Documenation
